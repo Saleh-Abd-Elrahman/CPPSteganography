@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libmain_library.a CMakeFiles/main_library.dir/encoder.cpp.o CMakeFiles/main_library.dir/decoder.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libmain_library.a
