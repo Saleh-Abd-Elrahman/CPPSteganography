@@ -1,57 +1,33 @@
 cmake_minimum_required(VERSION 3.10)
-project(SteganographyFrontend)
+project(CPPSTEGANOGRAPHY)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
 
-# Include FetchContent
-include(FetchContent)
+# MacOS specific settings
+set(CMAKE_OBJC_COMPILE_OBJECT "")
+enable_language(OBJC)
+set(CMAKE_OBJC_FLAGS "${CMAKE_C_FLAGS}")
 
-# Fetch GLFW
-FetchContent_Declare(
-    glfw
-    GIT_REPOSITORY https://github.com/glfw/glfw.git
-    GIT_TAG        3.3.8 # Use a specific version (adjust as needed)
-)
-FetchContent_MakeAvailable(glfw)
+# Add libraries
+add_subdirectory(libs)
 
-# Fetch glad (for OpenGL loading)
-FetchContent_Declare(
-    glad
-    GIT_REPOSITORY https://github.com/Dav1dde/glad.git
-    GIT_TAG        master
-)
-FetchContent_MakeAvailable(glad)
+# Include directories
+include_directories(src)
 
-# Add ImGui source files
-set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/external/imgui)
+# Find and include GLFW
+find_package(GLFW3 REQUIRED)
 
-set(IMGUI_SOURCES
-    ${IMGUI_DIR}/imgui.cpp
-    ${IMGUI_DIR}/imgui_draw.cpp
-    ${IMGUI_DIR}/imgui_widgets.cpp
-    ${IMGUI_DIR}/imgui_tables.cpp
-    ${IMGUI_DIR}/imgui_demo.cpp
-    ${IMGUI_DIR}/backends/imgui_impl_glfw.cpp
-    ${IMGUI_DIR}/backends/imgui_impl_opengl3.cpp
+# Specify source files
+set(SOURCES
+    src/main.cpp
+    src/encode_decode.cpp
+    # Add more files as needed
 )
 
-# Add include directories
-include_directories(${IMGUI_DIR} ${IMGUI_DIR}/backends)
-
-# Add source files for the project
-file(GLOB_RECURSE SOURCES "src/*.cpp")
-file(GLOB_RECURSE HEADERS "include/*.h")
-
-# Add executable
-add_executable(SteganographyFrontend ${SOURCES} ${IMGUI_SOURCES})
+# Create the executable
+add_executable(${PROJECT_NAME} ${SOURCES})
 
 # Link libraries
-find_package(OpenGL REQUIRED)
-find_package(glfw3 REQUIRED)
+target_link_libraries(${PROJECT_NAME} IMGUI SDL3-shared glfw)
 
-if(APPLE)
-    target_link_libraries(SteganographyFrontend PRIVATE glfw glad "-framework OpenGL")
-else()
-    target_link_libraries(SteganographyFrontend PRIVATE glfw glad OpenGL)
-endif()
