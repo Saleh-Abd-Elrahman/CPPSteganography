@@ -5,16 +5,17 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
-// Prototypes for your encode/decode functions
-std::string encodeFile(const std::string& filePath, const std::string& message);
-std::string decodeFile(const std::string& filePath);
+#include <sstream> 
+#include "encode.h"
+#include "decode.h"
 
 void ShowMainWindow() {
-    static bool encode = true; // Toggle between Encode/Decode
-    static char filePath[256] = ""; // File path input
-    static char message[512] = "";  // Message for encoding
-    static std::string output = ""; // Output message for decoding
+    static bool encode = true;              // Toggle between Encode/Decode
+    static bool encodeTextFile = false;    // Toggle between encoding a message or a text file
+    static char filePath[256] = "";        // File path input (target file for encoding/decoding)
+    static char textFilePath[256] = "";    // Text file path input (for encoding text files)
+    static char message[512] = "";         // Message input (for encoding messages)
+    static std::string output = "";        // Output message for decoding or success
 
     ImGui::Begin("Steganography Frontend");
 
@@ -29,24 +30,40 @@ void ShowMainWindow() {
         output = "";
     }
 
-    // File selection
-    ImGui::InputText("File Path", filePath, sizeof(filePath));
+    // File path for the target file (image/audio)
+    ImGui::InputText("Target File Path", filePath, sizeof(filePath));
 
     if (encode) {
-        // Input message for encoding
-        ImGui::InputText("Message", message, sizeof(message));
+        // Toggle between encoding a message or a text file
+        ImGui::Checkbox("Encode Text File", &encodeTextFile);
+
+        if (encodeTextFile) {
+            // Input for the text file path
+            ImGui::InputText("Text File Path", textFilePath, sizeof(textFilePath));
+        } else {
+            // Input for the message to encode
+            ImGui::InputText("Message", message, sizeof(message));
+        }
     }
 
+    // Submit button
     if (ImGui::Button("Submit")) {
         try {
             if (encode) {
-                // Call encoding function
-                std::string result = encodeFile(filePath, message);
-                output = "File encoded successfully: " + result;
+                if (encodeTextFile) {
+                    // Call the function to encode a text file
+                    std::string result = encodeText(filePath, textFilePath);
+                    output = "Text file encoded successfully: " + result;
+                } else {
+                    // Call the function to encode a direct message
+                    std::string result = encodeMessage(filePath, message);
+                    output = "Message encoded successfully: " + result;
+                }
             } else {
-                // Call decoding function
-                output = "Decoded message: " + decodeFile(filePath);
+                // Call the function to decode a file
+                output = "Decoded message: " + decode(filePath);
             }
+
         } catch (const std::exception& e) {
             output = std::string("Error: ") + e.what();
         }
