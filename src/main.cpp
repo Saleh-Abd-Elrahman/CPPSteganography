@@ -9,7 +9,7 @@
 #include "encode.h"
 #include "decode.h"
 
-void ShowMainWindow() {
+void ShowMainWindow(GLFWwindow* window) {
     static bool encode = true;              // Toggle between Encode/Decode
     static bool encodeTextFile = false;    // Toggle between encoding a message or a text file
     static char filePath[256] = "";        // File path input (target file for encoding/decoding)
@@ -17,7 +17,17 @@ void ShowMainWindow() {
     static char message[512] = "";         // Message input (for encoding messages)
     static std::string output = "";        // Output message for decoding or success
 
-    ImGui::Begin("Steganography Frontend");
+    // Get the current size of the GLFW window
+    int display_w, display_h;
+    glfwGetFramebufferSize(window, &display_w, &display_h);
+
+    // Set ImGui window size to match the GLFW window
+    ImGui::SetNextWindowPos(ImVec2(0, 0)); // Position at the top-left corner
+    ImGui::SetNextWindowSize(ImVec2((float)display_w, (float)display_h)); // Fullscreen size
+
+    // Begin ImGui window
+    ImGui::Begin("Steganography", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+
 
     // Encode or Decode toggle
     if (ImGui::RadioButton("Encode", encode)) {
@@ -120,7 +130,7 @@ int main() {
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        ShowMainWindow();
+        ShowMainWindow(window);
 
         // Rendering
         ImGui::Render();
