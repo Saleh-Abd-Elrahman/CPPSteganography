@@ -56,6 +56,13 @@ void encodeMessageInPNG(const std::string& inputImagePath, const std::string& ou
 }
 
 void hideMessageInImage(png_bytep* rows, int width, int height, const std::string& message, bool hasAlpha) {
+    // Convert the message length to a 32-bit binary string
+    uint32_t messageLength = message.size();
+    std::string binaryLength;
+    for (int i = 31; i >= 0; i--) {
+        binaryLength += ((messageLength >> i) & 1) ? '1' : '0';
+    }
+
     // Convert the message to binary
     std::string binaryMessage;
     for (char c : message) {
@@ -64,23 +71,31 @@ void hideMessageInImage(png_bytep* rows, int width, int height, const std::strin
         }
     }
 
-    int messageIndex = 0;
-    bool messageComplete = false;
+    // Concatenate length and message
+    std::string fullBinaryData = binaryLength + binaryMessage;
 
-    for (int y = 0; y < height && !messageComplete; ++y) {
+    int dataIdx = 0;
+    bool dataComplete = false;
+
+    for (int y = 0; y < height && !dataComplete; ++y) {
         png_bytep row = rows[y];
-        for (int x = 0; x < width && !messageComplete; ++x) {
+        for (int x = 0; x < width && !dataComplete; ++x) {
             png_bytep px = &(row[x * (hasAlpha ? 4 : 3)]);
-            
-            // Modify LSB of the blue channel (index 2 for RGB/RGBA)
-            if (messageIndex < binaryMessage.size()) {
-                px[2] = (px[2] & ~1) | (binaryMessage[messageIndex++] - '0');
+
+            // Modify LSB of the blue channel
+            if (dataIdx < fullBinaryData.size()) {
+                px[2] = (px[2] & ~1) | (fullBinaryData[dataIdx++] - '0');
             } else {
-                messageComplete = true;
+                dataComplete = true;
             }
         }
     }
+
+    if (!dataComplete) {
+        std::cerr << "Warning: The image is too small to hold the entire message." << std::endl;
+    }
 }
+
 
 void savePNG(const char* outputPath, png_bytep* rows, int width, int height, png_byte color_type) {
     FILE *fp = fopen(outputPath, "wb");

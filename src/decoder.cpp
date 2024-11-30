@@ -41,23 +41,54 @@ std::string decodeMessageFromPNG(const std::string& imagePath) {
     png_read_image(png, rows);
     fclose(fp);
 
-    std::string binaryMessage;
+    // Read bits from image
+    std::string binaryData;
     bool hasAlpha = (color_type == PNG_COLOR_TYPE_RGBA);
 
     for (int y = 0; y < height; ++y) {
         png_bytep row = rows[y];
         for (int x = 0; x < width; ++x) {
             png_bytep px = &(row[x * (hasAlpha ? 4 : 3)]);
-            binaryMessage += (px[2] & 1) ? '1' : '0';
+            binaryData += (px[2] & 1) ? '1' : '0';
         }
     }
 
+    // Read the first 32 bits to get the message length
+    if (binaryData.size() < 32) {
+        std::cerr << "Error: Not enough data to read message length." << std::endl;
+        // Free memory and return
+        for (int y = 0; y < height; y++) {
+            free(rows[y]);
+        }
+        free(rows);
+        png_destroy_read_struct(&png, &info, NULL);
+        return "";
+    }
+
+    uint32_t messageLength = 0;
+    for (int i = 0; i < 32; i++) {
+        messageLength = (messageLength << 1) | (binaryData[i] - '0');
+    }
+
+    // Now read the message bits
+    size_t totalMessageBits = messageLength * 8;
+    if (binaryData.size() < 32 + totalMessageBits) {
+        std::cerr << "Error: Not enough data to read the entire message." << std::endl;
+        // Free memory and return
+        for (int y = 0; y < height; y++) {
+            free(rows[y]);
+        }
+        free(rows);
+        png_destroy_read_struct(&png, &info, NULL);
+        return "";
+    }
+
+    std::string binaryMessage = binaryData.substr(32, totalMessageBits);
+
     std::string decodedMessage;
     for (size_t i = 0; i < binaryMessage.size(); i += 8) {
-        if (i + 8 <= binaryMessage.size()) {
-            char byte = static_cast<char>(std::stoi(binaryMessage.substr(i, 8), nullptr, 2));
-            decodedMessage += byte;
-        }
+        char byte = static_cast<char>(std::stoi(binaryMessage.substr(i, 8), nullptr, 2));
+        decodedMessage += byte;
     }
 
     for (int y = 0; y < height; y++) {
