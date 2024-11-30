@@ -6,6 +6,8 @@ project(cppsteganography VERSION 1.0) # This is the name of the project and its 
 set(CMAKE_CXX_STANDARD 17) # This sets the C++ standard to C++17
 set(CMAKE_CXX_STANDARD_REQUIRED True) # This tells CMake that the stdandard must be available
 
+file(COPY ${CMAKE_SOURCE_DIR}/images DESTINATION ${CMAKE_BINARY_DIR})
+
 # We place the executables in the bin directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # We place the libraries in the lib directory

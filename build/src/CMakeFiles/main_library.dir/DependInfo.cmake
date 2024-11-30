@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/guymazar/C++ Class/CPPSteganography/src/decoder.cpp" "src/CMakeFiles/main_library.dir/decoder.cpp.o" "gcc" "src/CMakeFiles/main_library.dir/decoder.cpp.o.d"
-  "/Users/guymazar/C++ Class/CPPSteganography/src/encoder.cpp" "src/CMakeFiles/main_library.dir/encoder.cpp.o" "gcc" "src/CMakeFiles/main_library.dir/encoder.cpp.o.d"
+  "/Users/salehabdelrahman/Documents/GitHub/CPPSteganography/src/decoder.cpp" "src/CMakeFiles/main_library.dir/decoder.cpp.o" "gcc" "src/CMakeFiles/main_library.dir/decoder.cpp.o.d"
+  "/Users/salehabdelrahman/Documents/GitHub/CPPSteganography/src/encoder.cpp" "src/CMakeFiles/main_library.dir/encoder.cpp.o" "gcc" "src/CMakeFiles/main_library.dir/encoder.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

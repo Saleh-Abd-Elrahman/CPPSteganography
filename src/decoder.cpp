@@ -20,9 +20,18 @@ std::string decodeMessageFromPNG(const std::string& imagePath) {
     png_init_io(png, fp);
     png_read_info(png, info);
 
-    int width = png_get_image_width(png, info);
-    int height = png_get_image_height(png, info);
+    int width      = png_get_image_width(png, info);
+    int height     = png_get_image_height(png, info);
     png_byte color_type = png_get_color_type(png, info);
+    png_byte bit_depth  = png_get_bit_depth(png, info);
+
+    // Add this format check
+    if (bit_depth != 8 || (color_type != PNG_COLOR_TYPE_RGB && color_type != PNG_COLOR_TYPE_RGBA)) {
+        std::cerr << "Unsupported PNG format. Only 8-bit RGB or RGBA is supported." << std::endl;
+        fclose(fp);
+        return "";
+    }
+
     png_read_update_info(png, info);
 
     png_bytep *rows = (png_bytep*) malloc(sizeof(png_bytep) * height);
@@ -33,10 +42,12 @@ std::string decodeMessageFromPNG(const std::string& imagePath) {
     fclose(fp);
 
     std::string binaryMessage;
+    bool hasAlpha = (color_type == PNG_COLOR_TYPE_RGBA);
+
     for (int y = 0; y < height; ++y) {
         png_bytep row = rows[y];
         for (int x = 0; x < width; ++x) {
-            png_bytep px = &(row[x * (color_type == PNG_COLOR_TYPE_RGBA ? 4 : 3)]);
+            png_bytep px = &(row[x * (hasAlpha ? 4 : 3)]);
             binaryMessage += (px[2] & 1) ? '1' : '0';
         }
     }
@@ -44,7 +55,7 @@ std::string decodeMessageFromPNG(const std::string& imagePath) {
     std::string decodedMessage;
     for (size_t i = 0; i < binaryMessage.size(); i += 8) {
         if (i + 8 <= binaryMessage.size()) {
-            char byte = std::stoi(binaryMessage.substr(i, 8), nullptr, 2);
+            char byte = static_cast<char>(std::stoi(binaryMessage.substr(i, 8), nullptr, 2));
             decodedMessage += byte;
         }
     }

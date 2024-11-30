@@ -8,6 +8,10 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
+find_package(PNG REQUIRED)
+include_directories(${PNG_INCLUDE_DIRS})
+
+
 include(GoogleTest)
 
 # Create the test executable
