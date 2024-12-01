@@ -11,6 +11,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.31.1/CMakeCCompiler.cmake"
   "CMakeFiles/3.31.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.31.1/CMakeSystem.cmake"
+  "/Users/salehabdelrahman/Documents/GitHub/CPPSteganography/src/CMakeLists.txt"
   "/opt/homebrew/lib/cmake/SndFile/SndFileConfig.cmake"
   "/opt/homebrew/lib/cmake/SndFile/SndFileConfigVersion.cmake"
   "/opt/homebrew/lib/cmake/SndFile/SndFileTargets-release.cmake"
@@ -139,9 +140,10 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/3.31.1/CMakeCCompiler.cmake"
   "CMakeFiles/3.31.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
+  "src/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/EchoHiding.dir/DependInfo.cmake"
+  "src/CMakeFiles/steganography.dir/DependInfo.cmake"
   )

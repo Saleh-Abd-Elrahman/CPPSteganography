@@ -117,89 +117,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named EchoHiding
+# Target rules for targets named steganography
 
 # Build rule for target.
-EchoHiding: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 EchoHiding
-.PHONY : EchoHiding
+steganography: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 steganography
+.PHONY : steganography
 
 # fast build rule for target.
-EchoHiding/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoHiding.dir/build.make CMakeFiles/EchoHiding.dir/build
-.PHONY : EchoHiding/fast
-
-src/EchoDecoder.o: src/EchoDecoder.cpp.o
-.PHONY : src/EchoDecoder.o
-
-# target to build an object file
-src/EchoDecoder.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoHiding.dir/build.make CMakeFiles/EchoHiding.dir/src/EchoDecoder.cpp.o
-.PHONY : src/EchoDecoder.cpp.o
-
-src/EchoDecoder.i: src/EchoDecoder.cpp.i
-.PHONY : src/EchoDecoder.i
-
-# target to preprocess a source file
-src/EchoDecoder.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoHiding.dir/build.make CMakeFiles/EchoHiding.dir/src/EchoDecoder.cpp.i
-.PHONY : src/EchoDecoder.cpp.i
-
-src/EchoDecoder.s: src/EchoDecoder.cpp.s
-.PHONY : src/EchoDecoder.s
-
-# target to generate assembly for a file
-src/EchoDecoder.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoHiding.dir/build.make CMakeFiles/EchoHiding.dir/src/EchoDecoder.cpp.s
-.PHONY : src/EchoDecoder.cpp.s
-
-src/EchoEncoder.o: src/EchoEncoder.cpp.o
-.PHONY : src/EchoEncoder.o
-
-# target to build an object file
-src/EchoEncoder.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoHiding.dir/build.make CMakeFiles/EchoHiding.dir/src/EchoEncoder.cpp.o
-.PHONY : src/EchoEncoder.cpp.o
-
-src/EchoEncoder.i: src/EchoEncoder.cpp.i
-.PHONY : src/EchoEncoder.i
-
-# target to preprocess a source file
-src/EchoEncoder.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoHiding.dir/build.make CMakeFiles/EchoHiding.dir/src/EchoEncoder.cpp.i
-.PHONY : src/EchoEncoder.cpp.i
-
-src/EchoEncoder.s: src/EchoEncoder.cpp.s
-.PHONY : src/EchoEncoder.s
-
-# target to generate assembly for a file
-src/EchoEncoder.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoHiding.dir/build.make CMakeFiles/EchoHiding.dir/src/EchoEncoder.cpp.s
-.PHONY : src/EchoEncoder.cpp.s
-
-src/main.o: src/main.cpp.o
-.PHONY : src/main.o
-
-# target to build an object file
-src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoHiding.dir/build.make CMakeFiles/EchoHiding.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
-
-src/main.i: src/main.cpp.i
-.PHONY : src/main.i
-
-# target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoHiding.dir/build.make CMakeFiles/EchoHiding.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
-
-src/main.s: src/main.cpp.s
-.PHONY : src/main.s
-
-# target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoHiding.dir/build.make CMakeFiles/EchoHiding.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
+steganography/fast:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/steganography.dir/build.make src/CMakeFiles/steganography.dir/build
+.PHONY : steganography/fast
 
 # Help Target
 help:
@@ -209,16 +137,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... EchoHiding"
-	@echo "... src/EchoDecoder.o"
-	@echo "... src/EchoDecoder.i"
-	@echo "... src/EchoDecoder.s"
-	@echo "... src/EchoEncoder.o"
-	@echo "... src/EchoEncoder.i"
-	@echo "... src/EchoEncoder.s"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
+	@echo "... steganography"
 .PHONY : help
 
 

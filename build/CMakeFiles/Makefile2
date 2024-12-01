@@ -63,51 +63,70 @@ CMAKE_BINARY_DIR = /Users/salehabdelrahman/Documents/GitHub/CPPSteganography/bui
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/EchoHiding.dir/all
+all: src/all
 .PHONY : all
 
 # The main recursive "codegen" target.
-codegen: CMakeFiles/EchoHiding.dir/codegen
+codegen: src/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
-preinstall:
+preinstall: src/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/EchoHiding.dir/clean
+clean: src/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/EchoHiding.dir
+# Directory level rules for directory src
+
+# Recursive "all" directory target.
+src/all: src/CMakeFiles/steganography.dir/all
+.PHONY : src/all
+
+# Recursive "codegen" directory target.
+src/codegen: src/CMakeFiles/steganography.dir/codegen
+.PHONY : src/codegen
+
+# Recursive "preinstall" directory target.
+src/preinstall:
+.PHONY : src/preinstall
+
+# Recursive "clean" directory target.
+src/clean: src/CMakeFiles/steganography.dir/clean
+.PHONY : src/clean
+
+#=============================================================================
+# Target rules for target src/CMakeFiles/steganography.dir
 
 # All Build rule for target.
-CMakeFiles/EchoHiding.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoHiding.dir/build.make CMakeFiles/EchoHiding.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoHiding.dir/build.make CMakeFiles/EchoHiding.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/salehabdelrahman/Documents/GitHub/CPPSteganography/build/CMakeFiles --progress-num=1,2,3,4 "Built target EchoHiding"
-.PHONY : CMakeFiles/EchoHiding.dir/all
+src/CMakeFiles/steganography.dir/all:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/steganography.dir/build.make src/CMakeFiles/steganography.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/steganography.dir/build.make src/CMakeFiles/steganography.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/salehabdelrahman/Documents/GitHub/CPPSteganography/build/CMakeFiles --progress-num=1,2,3,4 "Built target steganography"
+.PHONY : src/CMakeFiles/steganography.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/EchoHiding.dir/rule: cmake_check_build_system
+src/CMakeFiles/steganography.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/salehabdelrahman/Documents/GitHub/CPPSteganography/build/CMakeFiles 4
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/EchoHiding.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/steganography.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/salehabdelrahman/Documents/GitHub/CPPSteganography/build/CMakeFiles 0
-.PHONY : CMakeFiles/EchoHiding.dir/rule
+.PHONY : src/CMakeFiles/steganography.dir/rule
 
 # Convenience name for target.
-EchoHiding: CMakeFiles/EchoHiding.dir/rule
-.PHONY : EchoHiding
+steganography: src/CMakeFiles/steganography.dir/rule
+.PHONY : steganography
 
 # codegen rule for target.
-CMakeFiles/EchoHiding.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoHiding.dir/build.make CMakeFiles/EchoHiding.dir/codegen
-.PHONY : CMakeFiles/EchoHiding.dir/codegen
+src/CMakeFiles/steganography.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/steganography.dir/build.make src/CMakeFiles/steganography.dir/codegen
+.PHONY : src/CMakeFiles/steganography.dir/codegen
 
 # clean rule for target.
-CMakeFiles/EchoHiding.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/EchoHiding.dir/build.make CMakeFiles/EchoHiding.dir/clean
-.PHONY : CMakeFiles/EchoHiding.dir/clean
+src/CMakeFiles/steganography.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/steganography.dir/build.make src/CMakeFiles/steganography.dir/clean
+.PHONY : src/CMakeFiles/steganography.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
