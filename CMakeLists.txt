@@ -1,11 +1,25 @@
-cmake_minimum_required(VERSION 2.8.4)
-project(hiddenwave)
+cmake_minimum_required(VERSION 3.10)
+project(EchoHiding)
 
-FIND_PACKAGE( Boost 1.40 COMPONENTS program_options REQUIRED )
-INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+# Include directories
+include_directories(include)
 
-set(SOURCE_FILES src/main.cpp headers/main.h src/Algo.cpp headers/Algo.h src/CustomHead.cpp headers/CustomHead.h)
-add_executable(hiddenwave ${SOURCE_FILES})
-TARGET_LINK_LIBRARIES( hiddenwave ${Boost_LIBRARIES} )
+# Source files
+set(SOURCES
+    src/EchoEncoder.cpp
+    src/EchoDecoder.cpp
+    src/main.cpp
+)
+
+# Find libsndfile
+find_package(SndFile REQUIRED)
+include_directories(${SNDFILE_INCLUDE_DIR})
+
+# Add executable
+add_executable(EchoHiding ${SOURCES})
+
+# Link libraries
+target_link_libraries(EchoHiding ${SNDFILE_LIBRARIES})
