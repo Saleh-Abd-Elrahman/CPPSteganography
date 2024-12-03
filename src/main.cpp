@@ -15,9 +15,12 @@ private:
     // State variables
     bool encode = true;               // Toggle between Encode/Decode
     bool encodeTextFile = false;      // Toggle between encoding a message or a text file
-    char filePath[256] = "";          // File path input (target file for encoding/decoding)
-    char textFilePath[256] = "";      // Text file path input (for encoding text files)
+    
+    // Use of C-style strings for input fields (ImGui doesn't support std::string)
+    char filePath[512] = "";          // File path input (target file for encoding/decoding)
+    char textFilePath[512] = "";      // Text file path input (for encoding text files)
     char message[512] = "";           // Message input (for encoding messages)
+    char password[512] = "";          // Password input (for encoding/decoding)
     string output = "";               // Output message for decoding or success
 
     // Render options for encoding
@@ -30,6 +33,10 @@ private:
             ImGui::Text("Enter the message to encode into the target file.");
             ImGui::InputText("Message", message, sizeof(message));
         }
+
+        // Password input
+        ImGui::Text("Enter a password:");
+        ImGui::InputText("Password", password, sizeof(password), ImGuiInputTextFlags_Password);
     }
 
     // Handle form submission
@@ -112,6 +119,12 @@ public:
         if (encode) {
             RenderEncodeOptions();
         }
+        else {
+            // Password input
+            ImGui::Text("Enter the password used for encoding:");
+            ImGui::InputText("Password", password, sizeof(password), ImGuiInputTextFlags_Password);
+        }
+        
 
         // Submit button
         if (ImGui::Button("Submit")) {
@@ -183,9 +196,6 @@ public:
             ImGui::Render();
             int display_w, display_h;
             glfwGetFramebufferSize(window, &display_w, &display_h);
-            glViewport(0, 0, display_w, display_h);
-            glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT);
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
             glfwSwapBuffers(window);
